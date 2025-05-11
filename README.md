@@ -1,2 +1,2 @@
 # Musawer-s-Web
-🚀 AI Smart Calculator
+🚀 AI Smart Calculator.
