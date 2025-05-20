@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Responsive Website Homepage Design by AbdulDev</title>
+    <link rel="stylesheet" href="style.css" />
+    
+    
+  </head>
+  <body>
+  <style>
+  /* Importing Google font - Open Sans */
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap");
+
+* {
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+font-family: "Open Sans", sans-serif;
+}
+
+body {
+min-height: 100vh;
+width: 100%;
+background:rgb(27, 22, 59) ;
+}
+
+.header {
+background: #002254;
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+}
+
+.navbar {
+display: flex;
+align-items: center;
+justify-content: space-between;
+max-width: 1240px;
+margin: 0 auto;
+padding: 25px 15px;
+}
+
+.navbar .logo a {
+font-size: 40px;
+text-decoration: none;
+color: #fff;
+}
+.logo a span{
+color: #F24964;
+}
+
+.navbar .links {
+display: flex;
+align-items: center;
+list-style: none;
+gap: 35px;
+}
+
+.navbar .links a {
+font-size: 17px;
+font-weight: 500;
+text-decoration: none;
+color: #fff;
+padding: 10px 0;
+transition: 0.3s;
+}
+
+.navbar .links a:hover {
+color: #F24964;
+}
+
+.navbar .button a {
+text-decoration: none;
+color: #fff;
+font-size: 17px;
+}
+
+.navbar .button .login {
+font-size: 17px;
+font-weight: 500;
+border: 2px solid #fff;
+padding: 10px 30px;
+border-radius: 45px;
+text-align: center;
+transition: 0.5s;
+}
+
+.navbar .button .login:hover {
+background-color: #F24964;
+color: #fff;
+border: 2px solid #F24964;
+}
+
+.hero-section {
+display: flex;
+justify-content: space-evenly;
+align-items: center;
+height: 100vh;
+padding: 0 15px;
+max-width: 1240px;
+margin: 60px auto 0 auto;
+}
+
+.hero-section .hero {
+max-width: 61%;
+color: #fff;
+}
+
+.hero h2 {
+font-size: 40px;
+margin-bottom: 20px;
+}
+
+.hero p {
+width: 80%;
+font-size: 18px;
+margin-bottom: 20px;
+color: #ececec;
+}
+
+.hero-section .img img {
+width: 400px;
+}
+
+.hero-section .buttons {
+margin-top: 40px;
+}
+
+.hero-section .buttons a {
+text-decoration: none;
+color: #fff;
+padding: 12px 24px;
+border-radius: 45px;
+font-weight: 600;
+transition: 0.5s;
+display: inline-block;
+}
+
+.hero-section .buttons a:not(:last-child) {
+margin-right: 15px;
+}
+
+.buttons .join {
+font-size: 17px;
+font-weight: 600;
+border: 2px solid #F24964;
+background-color: #F24964;
+}
+.buttons .join:hover{
+background: transparent;
+border: 2px solid #fff;
+}
+
+.hero-section .buttons .learn {
+font-size: 17px;
+font-weight: 600;
+border: 2px solid #fff;
+border-radius: 45px;
+}
+
+.hero-section .buttons .learn:hover {
+background-color: #F24964;
+border: 2px solid #F24964;
+}
+
+/* Hamburger menu styles */
+#menu-toggle {
+display: none;
+}
+
+#hamburger-btn {
+font-size: 1.8rem;
+color: #fff;
+cursor: pointer;
+display: none;
+order: 1;
+}
+
+@media screen and (max-width: 1023px) {
+body{
+padding: 150px 0 100px 0;
+}
+.navbar .logo a {
+font-size: 30px;
+}
+
+.links {
+position: fixed;
+left: -100%;
+top: 75px;
+width: 100%;
+height: 100vh;
+padding-top: 50px;
+background: #175d69;
+flex-direction: column;
+transition: 0.3s ease;
+}
+
+.navbar #menu-toggle:checked ~ .links {
+left: 0;
+}
+
+.navbar #hamburger-btn {
+display: block;
+}
+
+.header .button {
+display: none;
+}
+.hero-section{
+min-height: 100vh;
+display: flex;
+align-items: center;
+justify-content: center;
+flex-direction: column;
+}
+
+.hero-section .hero {
+max-width: 100%;
+color: #fff;
+text-align: center;
+}
+.hero p{
+font-size: 16px;
+line-height: 26px;
+width: 100%;
+}
+.hero h2{
+font-size: 30px;
+}
+.hero-section .img img {
+width: 300px;
+padding-top: 50px;
+}
+
+}
+  </style>
+    <header class="header">
+      <nav class="navbar">
+        <h2 class="logo"><a href="#">ActionAid<span>commetty</span></a></h2>
+        <input type="checkbox" id="menu-toggle" />
+        <label for="menu-toggle" id="hamburger-btn">
+          <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+            <path d="M3 12h18M3 6h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </label>
+        <ul class="links">
+          <li><a href="#">Home</a></li>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Services</a></li>
+          <li><a href="#">jobs</a></li>
+          <li><a href="#">Contact Us</a></li>
+        </ul>
+        <div class="button">
+          <a href="class.html" class="login">Login</a>
+        </div>
+      </nav>
+    </header>
+    <section class="hero-section">
+      <div class="hero">
+        <h2>ActionAid commetty for afghnistan</h2>
+        <p>
+          this website his made for ActionAid commetty for Afghnistan to make thier projects easier. and help the people of afghnistan poors etc....
+        </p>
+        <div class="buttons">
+          <a href="class.html" class="join">Join Now</a>
+          <a href="#" class="learn">Learn More</a>
+        </div>
+      </div>
+      <div class="img"></div>
+
+      </div>
+    </section>
+  </body>
+</html>

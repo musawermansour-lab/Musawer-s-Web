@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ActionAid - Stylish Homepage</title>
+  <style>
+    /* Import Google Fonts */
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;900&display=swap');
+
+    /* Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body, html {
+      height: 100%;
+      background: url(aid.png)no-repeat;
+      color: #eee;
+      overflow-x: hidden;
+
+
+    /* Navbar */
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: rgba(15, 15, 15, 0.95);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      box-shadow: 0 2px 20px rgba(0, 255, 255, 0.2);
+      z-index: 9999;
+      backdrop-filter: blur(6px);
+      user-select: none;
+    }
+
+    .logo {
+      font-size: 2rem;
+      font-weight: 900;
+      color: #00fff7;
+      letter-spacing: 3px;
+      text-shadow: 0 0 8px #00fff7;
+      cursor: default;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 2rem;
+    }
+
+    nav ul li {
+      position: relative;
+    }
+
+    nav ul li a {
+      color: #bbb;
+      text-decoration: none;
+      font-weight: 600;
+      padding: 8px 14px;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      user-select: none;
+    }
+
+    nav ul li a:hover,
+    nav ul li a:focus {
+      background: url(aid.png)no-repeat;
+      color: #121212;
+      box-shadow: 0 0 15px #00fff7;
+      transform: scale(1.1);
+      outline: none;
+    }
+
+    /* Dropdown Menu */
+    nav ul li.dropdown > a::after {
+      content: "▼";
+      font-size: 0.6rem;
+      margin-left: 5px;
+      color: #00fff7;
+      transition: transform 0.3s ease;
+      user-select: none;
+    }
+
+    nav ul li.dropdown:hover > a::after,
+    nav ul li.dropdown:focus-within > a::after {
+      transform: rotate(180deg);
+    }
+
+    nav ul li.dropdown ul {
+      display: none;
+      position: absolute;
+      top: 120%;
+      left: 0;
+      background: #1a1a1a;
+      border-radius: 12px;
+      box-shadow: 0 0 25px #00fff7;
+      min-width: 180px;
+      padding: 0.5rem 0;
+      z-index: 1500;
+      user-select: none;
+    }
+
+    nav ul li.dropdown:hover ul,
+    nav ul li.dropdown:focus-within ul {
+      display: block;
+    }
+
+    nav ul li.dropdown ul li {
+      width: 100%;
+    }
+
+    nav ul li.dropdown ul li a {
+      padding: 12px 20px;
+      color: #aaa;
+      font-weight: 500;
+      border-radius: 0;
+      transition: background 0.3s ease, color 0.3s ease;
+      font-size: 0.9rem;
+      gap: 8px;
+    }
+
+    nav ul li.dropdown ul li a:hover,
+    nav ul li.dropdown ul li a:focus {
+      background: url(aid.png)no-repeat;
+      color: #121212;
+      box-shadow: none;
+      outline: none;
+    }
+
+    /* Hero Section with animated gradient */
+    .hero {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 0 1.5rem;
+      text-align: center;
+      background: url(hi.jpg)no-repeat;
+      background-size: 110% 110%;
+      animation: gradientShift 18s ease infinite;
+      color: #362f29;
+      user-select: none;
+    }
+
+    @keyframes gradientShift {
+      0%{background-position:0% 50%;}
+      50%{background-position:100% 50%;}
+      100%{background-position:0% 50%;}
+    }
+
+    .hero h1 {
+      font-size: 4.5rem;
+      font-weight: 900;
+      margin-bottom: 20px;
+      text-shadow: 0 0 20px #00fff7;
+      letter-spacing: 5px;
+    }
+
+    .hero p {
+      font-size: 1.6rem;
+      max-width: 650px;
+      margin-bottom: 40px;
+      font-weight: 600;
+      text-shadow: 0 0 8px #003f3f;
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .btn {
+      background: transparent;
+      color: #3b6665;
+      border: 2.5px solid #00fff7;
+      padding: 14px 48px;
+      font-size: 1.3rem;
+      font-weight: 700;
+      border-radius: 40px;
+      cursor: pointer;
+      transition: all 0.4s ease;
+      box-shadow: 0 0 10px #00fff7;
+      user-select: none;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn:hover,
+    .btn:focus {
+      background: #00fff7;
+      color: #121212;
+      box-shadow: 0 0 25px #00fff7;
+      transform: scale(1.12);
+      outline: none;
+    }
+
+    /* Footer */
+    footer {
+      background: #1b1b1b;
+      color: #555;
+      text-align: center;
+      padding: 15px 10px;
+      font-size: 0.9rem;
+      letter-spacing: 1px;
+      user-select: none;
+      box-shadow: inset 0 2px 8px rgba(0, 255, 255, 0.15);
+      margin-top: auto;
+    }
+
+    /* Responsive nav for mobile */
+    @media (max-width: 768px) {
+      nav ul {
+        position: fixed;
+        top: 60px;
+        right: -100%;
+        height: calc(100vh - 60px);
+        width: 240px;
+        background: #121212;
+        flex-direction: column;
+        padding-top: 2rem;
+        gap: 1.5rem;
+        transition: right 0.3s ease;
+        box-shadow: -5px 0 20px rgba(0, 255, 255, 0.3);
+      }
+
+      nav ul.open {
+        right: 0;
+      }
+
+      nav ul li.dropdown ul {
+        position: static;
+        box-shadow: none;
+        padding-left: 1rem;
+        background: transparent;
+      }
+
+      nav ul li.dropdown:hover ul,
+      nav ul li.dropdown:focus-within ul {
+        display: block;
+      }
+
+      nav ul li.dropdown ul li a {
+        padding-left: 30px;
+      }
+
+      .menu-toggle {
+        display: flex;
+        cursor: pointer;
+        user-select: none;
+      }
+
+      .menu-toggle div {
+        width: 28px;
+        height: 3.5px;
+        background: #00fff7;
+        margin: 5px 0;
+        border-radius: 3px;
+        transition: 0.3s ease;
+      }
+    }
+
+    /* Hide menu toggle on desktop */
+    .menu-toggle {
+      display: none;
+    }
+
+    /* Animate toggle to X */
+    .menu-toggle.open div:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 6px);
+    }
+    .menu-toggle.open div:nth-child(2) {
+      opacity: 0;
+    }
+    .menu-toggle.open div:nth-child(3) {
+      transform: rotate(-45deg) translate(5px, -6px);
+    }
+
+    /* Adjust hero padding for fixed nav */
+    .hero {
+      padding-top: 80px;
+    }
+
+    /* Smaller hero text on small devices */
+    @media (max-width: 480px) {
+      .hero h1 {
+        font-size: 2.8rem;
+        letter-spacing: 3px;
+      }
+      .hero p {
+        font-size: 1rem;
+      }
+      .btn {
+        padding: 12px 30px;
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="logo">ActionAid</div>
+    <div class="menu-toggle" id="menu-toggle" aria-label="Toggle navigation menu" role="button" tabindex="0">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+    <ul id="nav-links">
+      <li class="dropdown" tabindex="0">
+        <a href="#" aria-haspopup="true" aria-expanded="false">home</a>
+        <ul>
+          <li><a href="home">home</a></li>
+          <li><a href="class.html">login</a></li>
+          <li><a href="#">join</a></li>
+        </ul>
+      </li>
+    <ul id="nav-links">
+      <li class="dropdown" tabindex="0">
+        <a href="#" aria-haspopup="true" aria-expanded="false">about</a>
+        <ul>
+          <li><a href="#">background</a></li>
+          <li><a href="#">strategic plan</a></li>
+          <li><a href="#">code of conduct</a></li>
+        </ul>
+      </li>
+      <ul id="nav-links">
+
+      <li class="dropdown" tabindex="0">
+        <a href="#" aria-haspopup="true" aria-expanded="false">Activities</a>
+        <ul>
+          <li><a href="#">coordination & informition</a></li>
+          <li><a href="#">advocacy & enabling envirnoment</a></li>
+          <li><a href="#">capacity devolopment</a></li>
+        </ul>
+      </li>
+      <ul id="nav-links">
+      <li class="dropdown" tabindex="0">
+        <a href="#" aria-haspopup="true" aria-expanded="false">membership</a>
+        <ul>
+          <li><a href="#">action aid remmebers</a></li>
+          <li><a href="#">action aid steering commitee</a></li>
+          <li><a href="#">how to  become a memeber</a></li>
+          <li><a href="#">action aid statutes</a></li>
+        </ul>
+      </li>
+      <ul id="nav-links">
+      <li class="dropdown" tabindex="0">
+        <a href="#" aria-haspopup="true" aria-expanded="false">menu</a>
+        <ul>
+          <li><a href="index (2).html">Beneficiary</a></li>
+          <li><a href="#">None-humen achivement</a></li>
+          <li><a href="#">Distrebuted elements</a></li>
+        </ul>
+        </li>
+        <ul id="nav-links">
+      <li class="dropdown" tabindex="0">
+        <a href="#" aria-haspopup="true" aria-expanded="false">jobs</a>
+        <ul>
+          <li><a href="learnmore.html">action.aid jobs</a></li>
+          <li><a href="#">swedish commetty jobs</a></li>
+          <li><a href="#">brac  jobs</a></li>
+        </ul>
+      </li>
+      <li><a href="#">Add</a></li>
+    </ul>
+  </nav>
+
+  <section class="hero" role="main">
+    <h1>Welcome to ActionAid</h1>
+    <p>Together we empower communities through sustainable development, advocacy, and care.</p>
+    <div class="btn-group">
+      <a href="#" class="btn" aria-label="Learn more about ActionAid">Learn More</a>
+      <a href="#" class="btn" aria-label="Get involved with ActionAid">Get Involved</a>
+    </div>
+  </section>
+  <!-- About Us Section -->
+<section id="about" class="about-section">
+  <div class="about-container">
+    <div class="about-image">
+      <img src="https://source.unsplash.com/600x400/?team,office" alt="About Image">
+    </div>
+    <div class="about-content">
+      <h2>About Us</h2>
+      <p>
+        We are a passionate team focused on delivering modern, scalable, and user-friendly digital solutions. 
+        Our goal is to help businesses grow with technology.
+      </p>
+      <ul class="about-features">
+        <li><i class="fas fa-check-circle"></i> Responsive & Modern UI</li>
+        <li><i class="fas fa-bolt"></i> Lightning-fast Performance</li>
+        <li><i class="fas fa-shield-alt"></i> Secure & Reliable</li>
+        <li><i class="fas fa-headset"></i> 24/7 Technical Support</li>
+      </ul>
+      <button class="about-btn">More Information</button>
+    </div>
+  </div>
+</section>
+
+<!-- Styles -->
+<style>
+  body {
+    background-color: #121212;
+    color: #f0f0f0;
+    font-family: 'Segoe UI', sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+
+  .about-section {
+    padding: 80px 20px;
+    background-color: #121212;
+    transition: background 0.3s, color 0.3s;
+  }
+
+  .about-container {
+    max-width: 1200px;
+    margin: auto;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 40px;
+  }
+
+  .about-image img {
+    width: 100%;
+    max-width: 600px;
+    border-radius: 20px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+    transition: transform 0.3s;
+  }
+
+  .about-image img:hover {
+    transform: scale(1.03);
+  }
+
+  .about-content {
+    flex: 1;
+  }
+
+  .about-content h2 {
+    font-size: 2.8rem;
+    color: #00d4ff;
+    margin-bottom: 20px;
+  }
+
+  .about-content p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    margin-bottom: 25px;
+  }
+
+  .about-features {
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 30px;
+  }
+
+  .about-features li {
+    margin: 10px 0;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: color 0.3s ease;
+  }
+
+  .about-features li i {
+    color: #00d4ff;
+    font-size: 1.2rem;
+    transition: transform 0.3s ease;
+  }
+
+  .about-features li:hover i {
+    transform: scale(1.2) rotate(5deg);
+  }
+
+  .about-btn {
+    background-color: #00d4ff;
+    color: #000;
+    padding: 12px 30px;
+    font-size: 1rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.3s ease;
+  }
+
+  .about-btn:hover {
+    background-color: #00b8e6;
+    transform: translateY(-2px);
+  }
+
+  @media (max-width: 768px) {
+    .about-container {
+      flex-direction: column;
+      text-align: center;
+    }
+
+    .about-content {
+      order: 2;
+    }
+
+    .about-image {
+      order: 1;
+    }
+  }
+</style>
+
+<!-- Font Awesome Icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <!-- Poller of Services Section -->
+<!-- We Are Proud to Have Section -->
+<!-- We Are Proud to Have Section -->
+<section id="proud" class="proud-section">
+  <div class="proud-container">
+    <h2>We Are Proud to Have</h2>
+    <div class="proud-stats">
+      <div class="proud-item">
+        <i class="fas fa-users"></i>
+        <h3>10K+</h3>
+        <p>Happy Clients</p>
+      </div>
+      <div class="proud-item">
+        <i class="fas fa-code"></i>
+        <h3>500+</h3>
+        <p>Projects Completed</p>
+      </div>
+      <div class="proud-item">
+        <i class="fas fa-headset"></i>
+        <h3>24/7</h3>
+        <p>Customer Support</p>
+      </div>
+      <div class="proud-item">
+        <i class="fas fa-trophy"></i>
+        <h3>50+</h3>
+        <p>Awards Won</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Styles (add this inside <style> or your CSS file) -->
+<style>
+  body {
+    background-color: #121212;
+    color: #ffffff;
+    font-family: 'Segoe UI', sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+
+  .proud-section {
+    padding: 80px 20px;
+    background-color: #121212;
+    text-align: center;
+  }
+
+  .proud-section h2 {
+    font-size: 2.5rem;
+    color: #00d4ff;
+    margin-bottom: 50px;
+  }
+
+  .proud-stats {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 40px;
+  }
+
+  .proud-item {
+    background-color: #1e1e1e;
+    border-radius: 16px;
+    padding: 30px 25px;
+    width: 220px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+
+  .proud-item:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 30px rgba(0, 212, 255, 0.2);
+  }
+
+  .proud-item i {
+    font-size: 2rem;
+    color: #00d4ff;
+    margin-bottom: 15px;
+  }
+
+  .proud-item h3 {
+    font-size: 1.8rem;
+    margin: 10px 0;
+  }
+
+  .proud-item p {
+    font-size: 1rem;
+    color: #ccc;
+  }
+
+  @media (max-width: 768px) {
+    .proud-stats {
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+</style>
+
+<!-- Font Awesome (only include once) -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<!-- Highlight Section -->
+<section id="highlights" class="highlight-section">
+  <div class="highlight-container">
+    <h2 class="highlight-title">Our Highlights</h2>
+    <div class="highlight-grid">
+      <div class="highlight-card" data-info="We have empowered over 15,000 people worldwide to upskill through our expert guidance and comprehensive courses. Join our community to boost your career!">
+        <div class="highlight-action">Empowered</div>
+        <div class="highlight-number">15,000+</div>
+        <p>People who grew their skills with our expert guidance and courses.</p>
+        <button class="learn-more-btn">More Information</button>
+      </div>
+      <div class="highlight-card" data-info="Our support team works 24/7 to assist customers anytime, ensuring you never face issues alone. Reach out to us whenever you need help!">
+        <div class="highlight-action">Supported</div>
+        <div class="highlight-number">24/7</div>
+        <p>Customers who received our round-the-clock assistance anytime they needed.</p>
+        <button class="learn-more-btn">More Information</button>
+      </div>
+      <div class="highlight-card" data-info="Over 5,000 communities and learners actively connect and collaborate on our platform, fostering a global network of knowledge sharing and growth.">
+        <div class="highlight-action">Connected</div>
+        <div class="highlight-number">5,000+</div>
+        <p>Communities and learners actively engaging on our platform worldwide.</p>
+        <button class="learn-more-btn">More Information</button>
+      </div>
+      <div class="highlight-card" data-info="We have inspired more than 10,000 individuals by sharing transformational success stories and motivating journeys that lead to real results.">
+        <div class="highlight-action">Inspired</div>
+        <div class="highlight-number">10,000+</div>
+        <p>Individuals motivated by our success stories and transformational journeys.</p>
+        <button class="learn-more-btn">More Information</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Modal -->
+<div id="infoModal" class="modal">
+  <div class="modal-content">
+    <span class="close-btn">&times;</span>
+    <p id="modalText"></p>
+  </div>
+</div>
+
+<!-- Styles -->
+<style>
+  body {
+    background-color: #121212;
+    color: #ffffff;
+    font-family: 'Segoe UI', sans-serif;
+  }
+
+  .highlight-section {
+    padding: 80px 20px;
+    background-color: #121212;
+    text-align: center;
+  }
+
+  .highlight-title {
+    font-size: 2.5rem;
+    margin-bottom: 50px;
+    color: #00d4ff;
+  }
+
+  .highlight-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    justify-content: center;
+  }
+
+  .highlight-card {
+    background-color: #1e1e1e;
+    padding: 30px 25px 40px;
+    border-radius: 16px;
+    width: 250px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .highlight-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 30px rgba(0, 212, 255, 0.3);
+  }
+
+  .highlight-action {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #00d4ff;
+    margin-bottom: 10px;
+  }
+
+  .highlight-number {
+    font-size: 2.2rem;
+    font-weight: 900;
+    color: #ffffff;
+    margin-bottom: 15px;
+  }
+
+  .highlight-card p {
+    font-size: 1rem;
+    color: #ccc;
+    margin-bottom: 25px;
+  }
+
+  .learn-more-btn {
+    background: transparent;
+    border: 2px solid #00d4ff;
+    color: #00d4ff;
+    font-weight: 600;
+    padding: 10px 24px;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.95rem;
+    letter-spacing: 0.04em;
+    width: 100%;
+    max-width: 180px;
+  }
+
+  .learn-more-btn:hover {
+    background-color: #00d4ff;
+    color: #121212;
+    box-shadow: 0 4px 15px rgba(0, 212, 255, 0.5);
+  }
+
+  /* Modal Styles */
+  .modal {
+    display: none; 
+    position: fixed; 
+    z-index: 9999; 
+    padding-top: 100px; 
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    overflow: auto; 
+    background-color: rgba(0,0,0,0.7);
+  }
+
+  .modal-content {
+    background-color: #1e1e1e;
+    margin: auto;
+    padding: 30px 25px;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 600px;
+    color: #ccc;
+    font-size: 1.1rem;
+    position: relative;
+  }
+
+  .close-btn {
+    color: #00d4ff;
+    font-size: 2rem;
+    font-weight: bold;
+    position: absolute;
+    top: 15px;
+    right: 25px;
+    cursor: pointer;
+    transition: color 0.3s ease;
+  }
+
+  .close-btn:hover {
+    color: #ffffff;
+  }
+
+  @media (max-width: 768px) {
+    .highlight-grid {
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+</style>
+
+<!-- JavaScript -->
+<script>
+  // Get modal elements
+  const modal = document.getElementById('infoModal');
+  const modalText = document.getElementById('modalText');
+  const closeBtn = document.querySelector('.close-btn');
+
+  // Open modal on button click
+  document.querySelectorAll('.learn-more-btn').forEach(button => {
+    button.addEventListener('click', () => {
+      const card = button.closest('.highlight-card');
+      const info = card.getAttribute('data-info');
+      modalText.textContent = info;
+      modal.style.display = 'block';
+    });
+  });
+
+  // Close modal when clicking close button
+  closeBtn.addEventListener('click', () => {
+    modal.style.display = 'none';
+  });
+
+  // Close modal when clicking outside modal content
+  window.addEventListener('click', (e) => {
+    if (e.target === modal) {
+      modal.style.display = 'none';
+    }
+  });
+</script>
+
+<!-- Font Awesome (only include once) -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+
+<!-- Optional Dark Mode Toggle Button -->
+<button class="toggle-btn" onclick="document.body.classList.toggle('dark-mode')"
+  style="position:fixed;top:20px;right:20px;padding:10px 16px;border:none;background:#00d4ff;color:#000;border-radius:30px;cursor:pointer;font-weight:bold;">
+  Toggle Dark Mode
+</button>
+
+  
+  <footer>
+    &copy; 2025 ActionAid | All Rights Reserved
+  </footer>
+
+  <script>
+    // Mobile menu toggle
+    const toggle = document.getElementById('menu-toggle');
+    const navLinks = document.getElementById('nav-links');
+
+    toggle.addEventListener('click', () => {
+      navLinks.classList.toggle('open');
+      toggle.classList.toggle('open');
+      // Toggle aria-expanded for accessibility
+      const expanded = toggle.classList.contains('open');
+      toggle.setAttribute('aria-expanded', expanded);
+    });
+
+    // Close menu when clicking outside on mobile
+    document.addEventListener('click', (e) => {
+      if (!navLinks.contains(e.target) && !toggle.contains(e.target)) {
+        navLinks.classList.remove('open');
+        toggle.classList.remove('open');
+        toggle.setAttribute('aria-expanded', false);
+      }
+    });
+
+    // Keyboard support for menu toggle
+    toggle.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        toggle.click();
+      }
+    });
+  </script>
+
+</body>
+</html>

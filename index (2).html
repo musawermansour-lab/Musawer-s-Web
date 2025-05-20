@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Shared Beneficiary Table</title>
+  <style>
+    body { font-family: 'Segoe UI', sans-serif; background: #111; color: #fff; padding: 30px; }
+    h1 { text-align: center; color: #0af; }
+    .btns { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin: 20px 0; }
+    button { padding: 10px 20px; background: #0af; border: none; color: white; cursor: pointer; border-radius: 5px; }
+    button:hover { background: #007acc; }
+    table { width: 100%; border-collapse: collapse; background: #1b1b1b; }
+    th, td { border: 1px solid #333; padding: 10px; text-align: left; min-width: 120px; }
+    th { background: #222; }
+    td { background: #1a1a1a; }
+    td:focus { outline: 2px solid #0af; background-color: #2b2b2b; }
+    .clear-row-btn { background: #e74c3c; color: white; border: none; cursor: pointer; padding: 5px 10px; border-radius: 3px; }
+    .clear-row-btn:hover { background: #c0392b; }
+  </style>
+</head>
+<body>
+
+<h1>ActionAid Beneficiary Table (Shared)</h1>
+
+<div class="btns">
+  <button onclick="addRow()">➕ Add Row</button>
+  <button onclick="addColumn()">➕ Add Column</button>
+  <button onclick="clearAll()">🗑️ Clear All</button>
+</div>
+
+<table id="beneficiaryTable">
+  <thead>
+    <tr id="tableHead">
+      <th>Name</th>
+      <th>Beneficiary ID</th>
+      <th>Gender</th>
+      <th>Age</th>
+      <th>Village</th>
+      <th>Phone</th>
+      <th>Clear</th>
+    </tr>
+  </thead>
+  <tbody></tbody>
+</table>
+
+<!-- Firebase SDKs -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+
+<script>
+  // Your Firebase config - replace these values with YOUR Firebase project config!
+  const firebaseConfig = {
+    apiKey: "YOUR_API_KEY",
+    authDomain: "YOUR_PROJECT.firebaseapp.com",
+    projectId: "YOUR_PROJECT_ID",
+    storageBucket: "YOUR_PROJECT.appspot.com",
+    messagingSenderId: "YOUR_SENDER_ID",
+    appId: "YOUR_APP_ID"
+  };
+
+  // Initialize Firebase and Firestore
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.firestore();
+
+  const table = document.getElementById("beneficiaryTable");
+  const tableHead = document.getElementById("tableHead");
+  const tableBody = table.querySelector("tbody");
+  const storageDoc = db.collection('beneficiaryTable').doc('mainTable');
+
+  function saveData() {
+    const headers = Array.from(tableHead.children).slice(0, -1).map(th => th.innerText);
+    const rows = Array.from(tableBody.rows).map(row => {
+      return Array.from(row.cells).slice(0, -1).map(cell => cell.innerText);
+    });
+    storageDoc.set({ headers, rows })
+      .then(() => console.log("Data saved"))
+      .catch(console.error);
+  }
+
+  async function loadData() {
+    try {
+      const doc = await storageDoc.get();
+      if (!doc.exists) {
+        renderHeaders(["Name", "Beneficiary ID", "Gender", "Age", "Village", "Phone"]);
+        return;
+      }
+      const { headers, rows } = doc.data();
+      renderHeaders(headers);
+      rows.forEach(data => {
+        const row = createRow(data);
+        tableBody.appendChild(row);
+      });
+    } catch (error) {
+      console.error("Error loading data:", error);
+      renderHeaders(["Name", "Beneficiary ID", "Gender", "Age", "Village", "Phone"]);
+    }
+  }
+
+  function renderHeaders(headers) {
+    tableHead.innerHTML = '';
+    headers.forEach(header => {
+      const th = document.createElement("th");
+      th.innerText = header;
+      tableHead.appendChild(th);
+    });
+    const clearTh = document.createElement("th");
+    clearTh.innerText = "Clear";
+    tableHead.appendChild(clearTh);
+  }
+
+  function createRow(data = []) {
+    const row = document.createElement("tr");
+    const columnCount = tableHead.children.length - 1;
+
+    for (let i = 0; i < columnCount; i++) {
+      const cell = document.createElement("td");
+      cell.contentEditable = "true";
+      cell.innerText = data[i] || '';
+      cell.addEventListener("input", saveData);
+      row.appendChild(cell);
+    }
+
+    const clearCell = document.createElement("td");
+    const clearBtn = document.createElement("button");
+    clearBtn.innerText = "🗑️";
+    clearBtn.className = "clear-row-btn";
+    clearBtn.onclick = () => {
+      row.remove();
+      saveData();
+    };
+    clearCell.appendChild(clearBtn);
+    row.appendChild(clearCell);
+
+    return row;
+  }
+
+  function addRow() {
+    const row = createRow();
+    tableBody.appendChild(row);
+    saveData();
+  }
+
+  function addColumn() {
+    const columnName = prompt("Enter column name:");
+    if (!columnName) return;
+
+    // Add header
+    const newTh = document.createElement("th");
+    newTh.innerText = columnName;
+    tableHead.insertBefore(newTh, tableHead.lastElementChild);
+
+    // Add new cells to existing rows
+    for (const row of tableBody.rows) {
+      const newTd = document.createElement("td");
+      newTd.contentEditable = "true";
+      newTd.addEventListener("input", saveData);
+      row.insertBefore(newTd, row.lastElementChild);
+    }
+
+    saveData();
+  }
+
+  function clearAll() {
+    if (confirm("Clear all data?")) {
+      storageDoc.delete().then(() => {
+        tableBody.innerHTML = '';
+        renderHeaders(["Name", "Beneficiary ID", "Gender", "Age", "Village", "Phone"]);
+      });
+    }
+  }
+
+  // Load data on page load
+  loadData();
+</script>
+
+</body>
+</html>

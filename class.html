@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Student Login & Registration | Modern UI</title>
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+    integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  />
+  <style>
+    /* Reset and base */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #1f2937, #0f172a);
+      overflow: hidden;
+      padding: 20px;
+    }
+
+    .container {
+      background: linear-gradient(145deg, #2f3e5e, #1b263b);
+      border-radius: 25px;
+      border: 8px solid transparent;
+      background-clip: padding-box;
+      box-shadow:
+        0 0 20px 4px rgba(0, 223, 196, 0.6),
+        inset 5px 5px 15px rgba(255, 255, 255, 0.1),
+        inset -5px -5px 15px rgba(0, 0, 0, 0.7);
+      width: 380px;
+      padding: 50px 40px 40px 40px;
+      transition: 0.5s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .container::before {
+      content: '';
+      position: absolute;
+      top: -8px; left: -8px; right: -8px; bottom: -8px;
+      border-radius: 25px;
+      background: linear-gradient(45deg, #00dfc4, #008080, #00dfc4);
+      background-size: 400% 400%;
+      animation: gradientBG 10s ease infinite;
+      z-index: -1;
+    }
+
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* Form wrapper for animation */
+    .forms-wrapper {
+      position: relative;
+      height: 400px;
+      width: 100%;
+    }
+
+    .form {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+      align-items: center;
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    /* Show one form at a time with fade & slide */
+    .form.signin {
+      opacity: 1;
+      transform: translateX(0);
+      pointer-events: auto;
+      z-index: 2;
+    }
+
+    .form.signup {
+      opacity: 0;
+      transform: translateX(100%);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .container.signupForm .form.signin {
+      opacity: 0;
+      transform: translateX(-100%);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .container.signupForm .form.signup {
+      opacity: 1;
+      transform: translateX(0);
+      pointer-events: auto;
+      z-index: 2;
+    }
+
+    .form h2 {
+      color: #00dfc4;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      font-size: 2em;
+      margin-bottom: 15px;
+      text-transform: uppercase;
+      user-select: none;
+      text-shadow: 0 0 10px #00dfc4;
+    }
+
+    .inputBox {
+      position: relative;
+      width: 100%;
+    }
+
+    .inputBox input {
+      width: 100%;
+      padding: 15px 15px 15px 50px;
+      border-radius: 30px;
+      border: none;
+      background: #223243;
+      color: #e0e0e0;
+      font-size: 1.1em;
+      font-weight: 400;
+      box-shadow:
+        inset 5px 5px 10px rgba(0, 0, 0, 0.7),
+        inset -5px -5px 10px rgba(255, 255, 255, 0.1);
+      transition: 0.4s ease;
+      outline: none;
+    }
+
+    .inputBox input::placeholder {
+      color: rgba(255, 255, 255, 0.4);
+    }
+
+    .inputBox input:focus {
+      background: #1b2a3d;
+      box-shadow:
+        0 0 10px #00dfc4,
+        inset 5px 5px 15px rgba(0, 223, 196, 0.6);
+      color: #00dfc4;
+    }
+
+    .inputBox i {
+      position: absolute;
+      top: 50%;
+      left: 18px;
+      transform: translateY(-50%);
+      color: #00dfc4;
+      font-size: 1.2em;
+      pointer-events: none;
+      transition: 0.4s ease;
+    }
+
+    .inputBox input:focus + i {
+      color: #00ffc8;
+      text-shadow: 0 0 8px #00ffc8;
+    }
+
+    .inputBox span {
+      position: absolute;
+      top: 50%;
+      left: 50px;
+      transform: translateY(-50%);
+      pointer-events: none;
+      font-size: 1em;
+      font-weight: 300;
+      color: rgba(255, 255, 255, 0.6);
+      transition: 0.4s ease;
+      text-transform: capitalize;
+    }
+
+    .inputBox input:valid ~ span,
+    .inputBox input:focus ~ span {
+      top: -10px;
+      left: 40px;
+      font-size: 0.7em;
+      color: #00dfc4;
+      background: #1b2a3d;
+      padding: 0 10px;
+      border-radius: 10px;
+      box-shadow: 0 0 5px #00dfc4;
+    }
+
+    .inputBox input[type="submit"] {
+      padding: 15px 0;
+      font-weight: 700;
+      background: linear-gradient(45deg, #00dfc4, #00bfa5);
+      color: #223243;
+      cursor: pointer;
+      box-shadow:
+        0 4px 15px rgba(0, 223, 196, 0.5);
+      border-radius: 30px;
+      font-size: 1.2em;
+      transition: 0.3s ease;
+      user-select: none;
+      letter-spacing: 0.1em;
+    }
+
+    .inputBox input[type="submit"]:hover {
+      background: linear-gradient(45deg, #00bfa5, #00dfc4);
+      box-shadow:
+        0 0 20px #00dfc4,
+        0 0 10px #00dfc4 inset;
+    }
+
+    .form p {
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 0.8em;
+      font-weight: 300;
+      user-select: none;
+      text-align: center;
+      max-width: 300px;
+    }
+
+    .form p a {
+      font-weight: 600;
+      color: #00dfc4;
+      cursor: pointer;
+      text-decoration: none;
+      transition: 0.3s ease;
+    }
+
+    .form p a:hover {
+      text-decoration: underline;
+      color: #00ffc8;
+      text-shadow: 0 0 5px #00ffc8;
+    }
+
+    /* Responsive tweaks */
+    @media (max-width: 420px) {
+      .container {
+        width: 100%;
+        padding: 40px 30px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container signinForm">
+    <div class="forms-wrapper">
+      <!-- Sign In Form -->
+      <form id="signinForm" class="form signin" autocomplete="off">
+        <h2>Sign In</h2>
+        <div class="inputBox">
+          <input type="text" name="name" required />
+          <i class="fa-solid fa-user"></i>
+          <span>Name</span>
+        </div>
+        <div class="inputBox">
+          <input type="email" name="email" required />
+          <i class="fa-solid fa-envelope"></i>
+          <span>Email</span>
+        </div>
+        <div class="inputBox">
+          <input type="password" name="password" required />
+          <i class="fa-solid fa-lock"></i>
+          <span>Password</span>
+        </div>
+        <div class="inputBox">
+          <input type="submit" value="Login" />
+        </div>
+        <p>
+          Don't have an account?
+          <a href="#" id="showSignup">Sign up</a>
+        </p>
+      </form>
+
+      <!-- Sign Up Form -->
+      <form id="signupForm" class="form signup" autocomplete="off">
+        <h2>Sign Up</h2>
+        <div class="inputBox">
+          <input type="text" name="newUsername" required />
+          <i class="fa-solid fa-user"></i>
+          <span>Username</span>
+        </div>
+        <div class="inputBox">
+          <input type="email" name="email" required />
+          <i class="fa-solid fa-envelope"></i>
+          <span>Email</span>
+        </div>
+        <div class="inputBox">
+          <input type="password" name="newPassword" required />
+          <i class="fa-solid fa-lock"></i>
+          <span>Password</span>
+        </div>
+        <div class="inputBox">
+          <input type="submit" value="Register" />
+        </div>
+        <p>
+          Already have an account?
+          <a href="#" id="showSignin">Sign in</a>
+        </p>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    // Elements
+    const container = document.querySelector('.container');
+    const showSignup = document.getElementById('showSignup');
+    const showSignin = document.getElementById('showSignin');
+    const signinForm = document.getElementById('signinForm');
+    const signupForm = document.getElementById('signupForm');
+    signinForm.addEventListener('submit', e => {
+  e.preventDefault();
+
+  const name = signinForm.name.value.trim().toLowerCase();
+  const email = signinForm.email.value.trim().toLowerCase();
+  const password = signinForm.password.value;
+
+  const matchedUser = users.find(user =>
+    user.name.toLowerCase() === name &&
+    user.email.toLowerCase() === email &&
+    user.password === password
+  );
+
+  if (matchedUser) {
+    alert(`Login successful! Redirecting to your portfolio, ${matchedUser.name}.`);
+    window.location.href = matchedUser.portfolio;  // Redirect to their portfolio page
+  } else {
+    alert('Invalid login credentials. Please try again.');
+  }
+});
+
+    // Hardcoded user for demo
+    const users = [
+  {
+    name: 'mobasher',
+    email: 'mobasher@gmail.com',
+    password: '12345',
+    portfolio: 'my.html'
+  },
+  {
+    name: 'Alex',
+    email: 'alex@example.com',
+    password: 'abc123',
+    portfolio: 'alex-portfolio.html'
+  },
+  {
+    name: 'Maria',
+    email: 'maria@example.com',
+    password: 'pass789',
+    portfolio: 'maria-portfolio.html'
+  },
+  {
+    name: 'David',
+    email: 'david@example.com',
+    password: 'qwerty',
+    portfolio: 'david-portfolio.html'
+  }
+];
+
+
+    // Toggle forms
+    showSignup.addEventListener('click', e => {
+      e.preventDefault();
+      container.classList.add('signupForm');
+    });
+
+    showSignin.addEventListener('click', e => {
+      e.preventDefault();
+      container.classList.remove('signupForm');
+    });
+
+    // Sign in form submit
+    signinForm.addEventListener('submit', e => {
+      e.preventDefault();
+      const name = signinForm.name.value.trim();
+      const email = signinForm.email.value.trim();
+      const password = signinForm.password.value;
+
+      if (
+        name.toLowerCase() === user.name.toLowerCase() &&
+        email.toLowerCase() === user.email.toLowerCase() &&
+        password === user.password
+      ) {
+        alert('Login successful!');
+        // Redirect to student.html or your dashboard page here
+        window.location.href = 'student.html';
+      } else {
+        alert('Invalid login credentials. Please try again.');
+      }
+    });
+
+    // (Optional) Sign up form submit (you can expand this as needed)
+    signupForm.addEventListener('submit', e => {
+      e.preventDefault();
+      alert('Sign up is currently disabled in this demo.');
+    });
+  </script>
+</body>
+</html>
